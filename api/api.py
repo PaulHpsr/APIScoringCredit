@@ -15,7 +15,7 @@ model_path = os.path.join(os.path.dirname(__file__), "..", "models", "modele_xgb
 model = joblib.load(model_path)
 
 # Chargement des profils bancaires depuis le fichier JSON
-profils_path = os.path.join(os.path.dirname(__file__), "..", "profils_bancaires.json")
+profils_path = os.path.join(os.path.dirname(__file__), "profils_bancaires.json")
 with open(profils_path, "r", encoding="utf-8") as f:
     profils_bancaires = json.load(f)
     
