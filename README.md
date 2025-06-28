@@ -46,7 +46,7 @@ git push -u origin main
 
 Nouveau service → "Web Service"
 
-Connecter ton dépôt GitHub
+Connecter son dépôt GitHub
 
 Renseigner :
 
