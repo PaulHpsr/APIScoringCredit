@@ -6,11 +6,9 @@ import json
 
 from flask_cors import CORS
 
-CORS(app)
-
 # Initialisation de l'app Flask
 app = Flask(__name__)
-
+CORS(app)
 SEUIL_OPTIMAL = 0.735
 
 
