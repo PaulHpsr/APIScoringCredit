@@ -1,0 +1,26 @@
+[
+  {
+    "type": "Banque traditionnelle",
+    "conditions": {
+      "revenu_minimum": 0,
+      "apport_minimum": 0,
+      "contrats_acceptes": ["CDI", "CDD", "auto-entrepreneur", "fonctionnaire"]
+    }
+  },
+  {
+    "type": "Banque en ligne",
+    "conditions": {
+      "revenu_minimum": 2500,
+      "apport_minimum": 30000,
+      "contrats_acceptes": ["CDI", "fonctionnaire"]
+    }
+  },
+  {
+    "type": "Banque mutualiste",
+    "conditions": {
+      "revenu_minimum": 1500,
+      "apport_minimum": 2000,
+      "contrats_acceptes": ["CDI", "CDD", "étudiant"]
+    }
+  }
+]
