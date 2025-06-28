@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
+import os
 
 # Initialisation de l'app Flask
 app = Flask(__name__)
@@ -9,9 +10,10 @@ SEUIL_OPTIMAL = 0.735
 
 
 # Chargement du modèle
-model = joblib.load("../models/modele_xgboost.pkl")  # adapte le chemin si besoin
+model_path = os.path.join(os.path.dirname(__file__), "..", "models", "modele_xgboost.pkl")
+model = joblib.load(model_path)
 
-# Définition de quelques règles simples pour les profils bancaires
+# Définition de règles pour les profils bancaires
 def recommander_banques(profil):
     recommandations = []
 
