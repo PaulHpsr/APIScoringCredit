@@ -4,6 +4,10 @@ import pandas as pd
 import os
 import json
 
+from flask_cors import CORS
+
+CORS(app)
+
 # Initialisation de l'app Flask
 app = Flask(__name__)
 
