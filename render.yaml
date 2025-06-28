@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: scoring-api
+    env: python
+    region: frankfurt
+    buildCommand: pip install -r requirements-api.txt
+    startCommand: gunicorn api.api:app
+    plan: free
+    autoDeploy: true
