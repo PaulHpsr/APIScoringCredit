@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
 import os
+import json
 
 # Initialisation de l'app Flask
 app = Flask(__name__)
@@ -13,18 +14,26 @@ SEUIL_OPTIMAL = 0.735
 model_path = os.path.join(os.path.dirname(__file__), "..", "models", "modele_xgboost.pkl")
 model = joblib.load(model_path)
 
+# Chargement des profils bancaires depuis le fichier JSON
+profils_path = os.path.join(os.path.dirname(__file__), "..", "profils_bancaires.json")
+with open(profils_path, "r", encoding="utf-8") as f:
+    profils_bancaires = json.load(f)
+    
 # Définition de règles pour les profils bancaires
-def recommander_banques(profil):
+def recommander_banques(profil_client):
     recommandations = []
+    for profil in profils_bancaires:
+        conditions = profil.get("conditions", {})
+        revenu_min = conditions.get("revenu_minimum", 0)
+        apport_min = conditions.get("apport_minimum", 0)
+        contrats = conditions.get("contrats_acceptes", [])
 
-    if profil.get("contrat") == "CDI" and profil.get("apport", 0) < 10000:
-        recommandations.append("Banque traditionnelle")
-
-    if profil.get("apport", 0) > 30000 and profil.get("contrat") in ["CDI", "fonctionnaire"]:
-        recommandations.append("Banque en ligne")
-
-    if profil.get("revenu", 0) < 2500 or profil.get("âge", 0) < 30:
-        recommandations.append("Banque mutualiste")
+        if (
+            profil_client.get("revenu", 0) >= revenu_min
+            and profil_client.get("apport", 0) >= apport_min
+            and profil_client.get("contrat") in contrats
+        ):
+            recommandations.append(profil["type"])
 
     return recommandations
 
@@ -46,12 +55,11 @@ def predict():
         "NumberOfDependents"
     ]
 
-    # Extraction des seules variables utiles pour le modèle
-    data_modele = {k: data[k] for k in colonnes_modele if k in data}
-
-    df_input = pd.DataFrame([data_modele])
-
     try:
+        # Extraction des seules variables utiles pour le modèle
+        data_modele = {k: data[k] for k in colonnes_modele if k in data}
+
+        df_input = pd.DataFrame([data_modele])
 
         proba = model.predict_proba(df_input)[0, 1]
 
