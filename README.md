@@ -1,6 +1,6 @@
 # API Scoring Crédit – XGBoost + Flask
 
-Cette API prédit la **probabilité de défaut de paiement** d’un client bancaire à partir de données financières.  
+Cette API prédit la **probabilité de défaut de paiement** d’un client bancaire à partir de données financières américaines récupérées sur le site : https://www.kaggle.com/competitions/GiveMeSomeCredit/data?select=cs-test.csv.  
 Elle repose sur un modèle **XGBoost équilibré** exposé via une API REST en Flask.
 
 ---
